@@ -1,0 +1,76 @@
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - custom_network
+    working_dir: /app/zookeeper
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"  # Map the external port for host access
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:29092  # Listeners for internal and external connections
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:29092  # Advertise for internal network and host
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT  # No SSL, for simplicity
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL  # Communication between brokers
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - custom_network
+    working_dir: /app/kafka
+    volumes:
+      - C:/Users/anast/Documents/Ms_Valdom/Big Data/big_data/data.csv:/app/kafka/data.csv
+
+  spark:
+    image: bitnami/spark:3.5.0
+    container_name: spark
+    environment:
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - "8080:8080"
+    networks:
+      - custom_network  # Same network as Kafka
+    depends_on:
+      - kafka  # Ensures Kafka is running before Spark starts
+    volumes: 
+      - C:/Users/anast/Documents/Ms_Valdom/Big Data/big_data/processing_data.py:/opt/bitnami/spark/processing_data.py
+      - C:/Users/anast/Documents/Ms_Valdom/Big Data/big_data/postgresql-42.3.7.jar:/opt/bitnami/spark/jars/postgresql-42.3.7.jar
+
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile_sql
+    ports:
+      - "5432:5432"
+    networks:
+      - custom_network
+    volumes:
+      - C:/Users/anast/Documents/Ms_Valdom/Big Data/big_data/init.sql:/docker-entrypoint-initdb.d/init.sql
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - custom_network
+networks:
+  custom_network:
+    driver: bridge
