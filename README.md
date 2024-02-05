@@ -33,3 +33,4 @@ so to get in the container execute : `dokcer exec -it bash`. once you're in the 
 you can access grafana by going in your web browser and typing : `localhost:3000` . you'll see and interface and the credentials are admin for the login and admin for the password
 .after that you need to add postgresql as your data source .use the configurations set in the docker-compse.yml file for connecting the database to grafana .
 once it's done you can build your dashboard
+![render]
