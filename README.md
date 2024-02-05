@@ -15,7 +15,8 @@ if you don't know how to install Docker you can follow the steps in these links 
 
 ## 1-launch containers
 to launch the containers make sure you're in the directory where the Docker-compose.yml is and then run :
-docker-compose up to start the containers . you'll see the 6 containers starting and running .
+<span style="color: gray;">docker-compose up</span> 
+to start the containers . you'll see the 6 containers starting and running .
 ## 2-create a topic 
 to start a producer kafka need a topic so the first thing we're going to do is to create a topic . to do so just execute this command in a command prompt 
 docker exec -it kafka kafka-topics --create --topic purchasedata --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
