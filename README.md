@@ -12,3 +12,23 @@ we'll be using a set of docker containers . more details are given below to help
 ## prerequisities
 Eusre you have Docker installed . whether you are using Linux , mac or windows it's quite easy to get Docker installed on you machine .
 if you don't know how to install Docker you can follow the steps in these links to do it . for [mac](https://docs.docker.com/desktop/install/mac-install/) , for [Linux](https://docs.docker.com/desktop/install/linux-install/) and this one for [Windows](https://docs.docker.com/desktop/install/windows-install/) 
+
+## 1-launch containers
+to launch the containers make sure you're in the directory where the Docker-compose.yml is and then run :
+docker-compose up to start the containers . you'll see the 6 containers starting and running .
+## 2-create a topic 
+to start a producer kafka need a topic so the first thing we're going to do is to create a topic . to do so just execute this command in a command prompt 
+docker exec -it kafka kafka-topics --create --topic purchasedata --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
+## 3-start a producer 
+before to start a producer you should first install kafka-python . so open your command prompt and type 
+pip install kafka-python .
+once it's done, open a command promt , go in the directory where the purchase_data.py is located and execute this commande :
+python purchase_data.py
+## 4-start processing the data 
+to start processing the data sent by kafka to spark . you should enter in the spark container . in the docker-compose file of this project i called the container hoster the spark service spark .
+so to get in the container execute : dokcer exec -it bash.once you're in the container start the processing by executing the following command :
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.5.0 processing_data.py
+## 5-visualize your data .
+you can access grafana by going in your web browser and typing : localhost:3000 . you'll see and interface and the credentials are admin for the login and admin for the password
+.after that you need to add postgresql as your data source .use the configurations set in the docker-compse.yml file for connecting the database to grafana .
+once it's done you can build your dashboard
