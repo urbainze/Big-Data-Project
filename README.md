@@ -21,7 +21,7 @@ To start the containers. You'll see the 6 containers starting and running .
 To start a producer, kafka need a topic so the first thing we're going to do is to create a topic. To do so, just execute this command in a command prompt : 
 `docker exec -it kafka kafka-topics --create --topic purchasedata --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092`
 ## 3-start a producer 
-Before to start a producer you should first install kafka-python . so open your command prompt and type 
+Before starting a producer, you should first install kafka-python . so open your command prompt and type 
 `pip install kafka-python` .
 once it's done, open a command promt , go in the directory where the `purchase_data.py` is located and execute this commande :
 `python purchase_data.py`
