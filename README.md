@@ -10,7 +10,7 @@ Nowadays, companies are dealing with an increasing amount of data. Therefore, it
 we'll be using a set of docker containers . more details are given below to help you setting up the conatainers .
 
 ## prerequisities
-Eusre you have Docker installed . whether you are using Linux , mac or windows it's quite easy to get Docker installed on you machine .
+Ensure you have Docker installed . whether you are using Linux , mac or windows it's quite easy to get Docker installed on you machine .
 if you don't know how to install Docker you can follow the steps in these links to do it . for [mac](https://docs.docker.com/desktop/install/mac-install/) , for [Linux](https://docs.docker.com/desktop/install/linux-install/) and this one for [Windows](https://docs.docker.com/desktop/install/windows-install/) 
 
 ## 1-launch containers
