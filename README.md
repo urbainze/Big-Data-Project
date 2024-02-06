@@ -26,13 +26,12 @@ Before starting a producer, you should first install kafka-python . so open your
 once it's done, open a command promt , go in the directory where the `purchase_data.py` is located and execute this commande :
 `python purchase_data.py`
 ## 4-start processing the data 
-To start processing the data sent by kafka to spark . you should enter in the spark container . in the docker-compose file of this project i called the container hoster the spark service spark .
-so to get in the container execute : `dokcer exec -it bash`. once you're in the container start the processing by executing the following command :
+To start processing the data sent by kafka to spark, you should enter in the spark container. In the docker-compose file of this project i called the container hoster the spark service spark.
+so to get in the container, execute : `dokcer exec -it bash`. Once you're in the container, start the processing by executing the following command :
 `spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.5.0 processing_data.py`
 ## 5-visualize your data .
-You can access grafana by going in your web browser and typing : `localhost:3000` . you'll see and interface and the credentials are admin for the login and admin for the password
-.after that you need to add postgresql as your data source .use the configurations set in the docker-compse.yml file for connecting the database to grafana .
-once it's done you can build your dashboard
+You can access grafana by going in your web browser and typing : `localhost:3000`. You'll see and interface and the credentials are admin for the login and admin for the password. After that, you need to add postgresql as your data source .use the configurations set in the docker-compse.yml file for connecting the database to grafana.
+Once it's done you can build your dashboard.
 
 
 ![render](https://github.com/urbainze/Big-Data-Project/blob/main/im1.PNG)
