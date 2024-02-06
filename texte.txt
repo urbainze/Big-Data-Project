@@ -1,4 +1,0 @@
-docker exec -it kafka kafka-topics --create --topic purchasedata --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
-docker exec -it 78ac0f714c40 kafka-topics --list --bootstrap-server localhost:9092
-docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic purchasedata --from-beginning
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.5.0 processing_data.py
