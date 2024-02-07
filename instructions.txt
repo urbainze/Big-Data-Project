@@ -9,4 +9,3 @@ Instructios pour lancer l'application:
 8- ensuite tu va dans ton navigateur tu lance localhost:3000 il te conduira à l'interface de grafana . username : admin , password : admin
 9- tu te connecte à ta base de donné : url host : postgres:5432 , user: postgresuser , password : postgrespass , databasename : postgresdb, ssl_mode tu mets :disable 
 10- tu peux commencer à faire des queries 
-
