@@ -1,0 +1,7 @@
+FROM postgres:latest
+
+#we set environement variables
+ENV POSTGRES_DB=postgresdb
+ENV POSTGRES_USER=postgresuser
+ENV POSTGRES_PASSWORD=postgrespass
+
